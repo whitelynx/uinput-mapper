@@ -28,9 +28,9 @@ def read_abs_values(f, abs_ev):
     return val
 
 _bpl = struct.calcsize('@L') * 8
-_nbits = lambda x: ((x-1) / _bpl) + 1
+_nbits = lambda x: ((x-1) // _bpl) + 1
 _ll = _nbits(KEY_MAX)
-test_bit = lambda j, v: (v[j / _bpl] >> (j % _bpl)) & 1
+test_bit = lambda j, v: (v[j // _bpl] >> (j % _bpl)) & 1
 
 def get_keys(f, ev):
     """
