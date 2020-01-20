@@ -63,7 +63,7 @@ names = {
 
 def config_merge(c, n):
     # XXX: We cannot just use update; as it will override everything in say EV_KEY
-    for k, v in config.iteritems():
+    for k, v in config.items():
         if k in c:
             c[k].update(v)
         else:

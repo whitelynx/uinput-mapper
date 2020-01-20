@@ -1,6 +1,6 @@
-from ioctlhelp import *
+from .ioctlhelp import *
 
-import linux_input
+from . import linux_input
 
 # For uinput version 3
 
@@ -48,7 +48,7 @@ UI_FF_UPLOAD = 1
 UI_FF_ERASE = 2
 
 import ctypes
-import linux_input
+from . import linux_input
 
 UINPUT_MAX_NAME_SIZE = 80
 class uinput_user_dev(ctypes.Structure):

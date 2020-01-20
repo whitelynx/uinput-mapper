@@ -8,7 +8,7 @@ from uinputmapper.cinput import *
 from uinputmapper.mapper import KeyMapper, parse_conf, pretty_conf_print
 
 try:
-    import cPickle as pickle
+    import pickle as pickle
 except ImportError:
     import pickle
 
@@ -35,10 +35,10 @@ if len(input_file) + len(args.grab) == 0:
     exit(0)
 
 # Open input devices
-fs = map(InputDevice, input_file)
+fs = list(map(InputDevice, input_file))
 
 # Open devices in grab mode
-fsg = map(InputDevice, args.grab)
+fsg = list(map(InputDevice, args.grab))
 
 # Grab devices
 for _ in fsg:
@@ -70,12 +70,12 @@ for f in fs:
 # Human readable info
 if args.dump:
     for f in fs:
-        print 'Version:', f.get_version()
-        print f.get_name()
+        print('Version:', f.get_version())
+        print(f.get_name())
 
         d = f.get_exposed_events()
-        for k, v in d.iteritems():
-            print k + ':', ', '.join(v)
+        for k, v in d.items():
+            print(k + ':', ', '.join(v))
 
 else:
     # Dump initial information over pickle to stdout
@@ -107,10 +107,10 @@ while True:
 
         if args.dump:
             try:
-                print i, ev.time.tv_sec, ev.time.tv_usec
+                print(i, ev.time.tv_sec, ev.time.tv_usec)
                 s = '%s %s %d' % (rev_events[ev.type],
                         rev_event_keys[ev.type][ev.code], ev.value)
-                print 'Event type:', s
+                print('Event type:', s)
             except KeyError:
                pass
 

@@ -1,5 +1,5 @@
-from linux_input import *
-from linux_uinput import *
+from .linux_input import *
+from .linux_uinput import *
 
 import array, struct, fcntl, os, sys
 
@@ -36,7 +36,7 @@ def get_keys(f, ev):
     """
     Get keys of type *f* from a specific input device *f*.
     """
-    buf = array.array('L', [0L] * _ll)
+    buf = array.array('L', [0] * _ll)
     try:
         fcntl.ioctl(f, EVIOCGBIT(ev, KEY_MAX), buf)
     except IOError:
@@ -89,7 +89,7 @@ class InputDevice(object):
         Returns all the keys exposed by this input device.
         """
         d = dict()
-        for k, v in events.iteritems():
+        for k, v in events.items():
             l = get_keys(self._f, v)
             if l:
                 d[k] = []
@@ -142,7 +142,7 @@ def open_uinput():
         try:
             f = os.open('/dev/input/uinput', os.O_WRONLY | os.O_NONBLOCK)
         except OSError:
-            print 'FAIL MUCH?'
+            print('FAIL MUCH?')
             return None
     return f
 
@@ -185,7 +185,7 @@ class UInputDevice(object):
     def __init__(self):
         self._f = open_uinput()
         if not self._f:
-            print 'Failed to open uinput'
+            print('Failed to open uinput')
             raise OSError
         self.uidev = uinput_user_dev()
 

@@ -83,12 +83,12 @@ names = {
 
 def config_merge(c, n):
     pretty_conf_print(c)
-    print '-' * 80
+    print('-' * 80)
     c.clear()
-    print '-' * 80
+    print('-' * 80)
     pretty_conf_print(c)
     c.update(config)
-    print '-' * 80
+    print('-' * 80)
     pretty_conf_print(c)
 
     n.update(names)

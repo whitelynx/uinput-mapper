@@ -1,5 +1,5 @@
 # encoding: utf-8
-import cinput
+from . import cinput
 
 """
 Module to help out with config parsing and input mapping
@@ -14,7 +14,7 @@ def parse_conf(f, devname):
     """
     conf = {}
     e = f.get_exposed_events()
-    for k, v in e.iteritems():
+    for k, v in e.items():
         t = cinput.events[k]
         if t == cinput.EV_SYN:
             continue
@@ -47,20 +47,20 @@ def pretty_conf_print(c):
     """
     Function to print an entire configuration
     """
-    for k, v in c.iteritems():
-        print 'Input:', k[0], 'Type:', cinput.rev_events[k[1]]
-        for kk, vv in v.iteritems():
+    for k, v in c.items():
+        print('Input:', k[0], 'Type:', cinput.rev_events[k[1]])
+        for kk, vv in v.items():
             n_ev_d, n_ev_t = vv['type']
-            print ' ' * 4,
-            print cinput.rev_event_keys[k[1]][kk],
-            print ' → ([%d, %s], %s)' % (n_ev_d,
+            print(' ' * 4, end=' ')
+            print(cinput.rev_event_keys[k[1]][kk], end=' ')
+            print(' → ([%d, %s], %s)' % (n_ev_d,
                 cinput.rev_events[n_ev_t],
-                cinput.rev_event_keys[n_ev_t][vv['code']])
+                cinput.rev_event_keys[n_ev_t][vv['code']]))
 
             if n_ev_t == cinput.EV_ABS:
-                print 'Properties: Max: %d Min: %d Fuzz: %d Flat: %d' % (
+                print('Properties: Max: %d Min: %d Fuzz: %d Flat: %d' % (
                         vv['prop']['max'], vv['prop']['min'],
-                        vv['prop']['fuzz'], vv['prop']['flat'])
+                        vv['prop']['fuzz'], vv['prop']['flat']))
 
 def get_exported_device_count(c):
     """
@@ -68,8 +68,8 @@ def get_exported_device_count(c):
     (Rather simple at the moment)
     """
     m = 0
-    for _, v in c.iteritems():
-        for _, o in v.iteritems():
+    for _, v in c.items():
+        for _, o in v.items():
             m = max(m, o['type'][0])
 
     return m + 1
@@ -105,8 +105,8 @@ class KeyMapper(object):
         Expose exposes events to a uinput-device *d* with index *fd* from the
         config passed to __init__.
         """
-        for (n, evt), v in self._config.iteritems():
-            for code, dat in v.iteritems():
+        for (n, evt), v in self._config.items():
+            for code, dat in v.items():
                 ofd, t = dat['type']
                 if ofd != fd:
                     continue
